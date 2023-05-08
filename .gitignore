@@ -1,0 +1,15 @@
+py_virt_env/
+.idea
+
+git_commit_message.txt
+doctoral_thesis.aux
+doctoral_thesis.bbl
+doctoral_thesis.blg
+doctoral_thesis.log
+doctoral_thesis.lot
+doctoral_thesis.out
+doctoral_thesis.run.xml
+doctoral_thesis.synctex.gz
+doctoral_thesis.tdo
+doctoral_thesis-blx.bib
+
