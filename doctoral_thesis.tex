@@ -20,7 +20,7 @@
 
 %\nolinenumbers
 \maketitle
-\listoftodos[Notes]
+%\listoftodos[Notes]
 %\tableofcontents
 %\listoffigures
 %\listoftables
@@ -32,7 +32,7 @@
 \alert{This indicates an alert, passage is either wrong, confusing, misleading, or any other kind of high attention.}
 \revise{This indicates a revision, in general it's not wrong but explanation is poor, wording is improper, or not satisfying in general.}
 \info{This is an information, it contains some side information that can be useful.}
-
+\construction{This box contains information/ideas that are not yet formed into sentences, in other words this will be implemented next}
 
 
 \section{random}
@@ -52,6 +52,25 @@
 
 
 \section{State of the art}
+
+
+
+
+\section{Why Model Order Reduction?}
+{\color{Mblue}{[[ \cite[8]{schilders2008introduction}; \cite[11]{chen1999model}; \cite[2]{benner2021model} ]]}}
+
+Real world problems are too complex to be solved analytically. In classes one deals with simplifications like the projectile motions neglecting air resistance or \alert{!! second example needed} and representing electrons as point charges with no volume in space. However, if one applies the underlying equations to reality things are not so easy anymore. Partial differential equations (PDE) are usually the way to describe the laws of Physics. It turns out that by trying to solve these equations there is only in the rarest cases an algebraic expression as a solution. In all other cases equations must be solved numerically and are therefore only approximations to the problem. One approach to compute such approximations is using the finite element method (FEM). This computational technique discretizes the domain of interest into finite cells (mesh) and with given boundary conditions (BC) the field variable of the governing PDE is determined. The more accurate the solution should be the more cells and more grid points that define a cell are needed. Even for simple geometries the degrees of freedom (DOFs), \ie{} the numbers of unknown can be in orders of millions and billions. Using brute force (simply adding abundant computational power with RAM and fastest processors) is not advisable in terms of time and energy. Instead of dealing with the original large scale system model simplifications reduces complexity. The trick here is to get rid of all superfluous and unnecessary details that provide little to no contribution to the solution. This is where model order reduction (MOR) got its name. The following picture gives a rough explanation of this.
+\begin{figure}[H]
+	\includegraphics[width=\linewidth, height=6cm]{example-image}
+	\caption{\cite[2]{benner2021model}. It seems that MOR is all about reducing the number of cells and grid points but that is not the essenece. The picture is given to demonstrate what reducing complexity but still holding the basic structure looks like.}
+	\label{}
+\end{figure}
+\revise{++ add more background from schilders \\ ?? more background on FEM (examples where it is used today) \\ ?? basic explaining equations for MWE}
+\construction{++ further explanation what MOR stands for}
+
+
+
+
 
 
 \end{document}
