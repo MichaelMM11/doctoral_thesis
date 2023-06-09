@@ -31,24 +31,8 @@
 
 \alert{This indicates an alert, passage is either wrong, confusing, misleading, or any other kind of high attention.}
 \revise{This indicates a revision, in general it's not wrong but explanation is poor, wording is improper, or not satisfying in general.}
-\info{This is an information, it contains some side information that can be useful.}
+\info{This is an information, it contains some side information/comments that can be useful.}
 \construction{This box contains information/ideas that are not yet formed into sentences, in other words this will be implemented next}
-
-
-\section{random}
-
-\begin{itemize}
-	\item main topic: temperature models of electric machines
-	\item goal: how to evaluate/estimate material properties/state of information if machine is running in the long run (> 20 years)\\
-	$\Ra$ one approach is MOR \\
-	especially state of duration: (non)-linear model
-	\item idea: co-operate with Honza because matrix already given
-\end{itemize}
-
-
-
-
-
 
 
 \section{State of the art}
@@ -69,10 +53,42 @@ Real world problems are too complex to be solved analytically. In classes one de
 \construction{++ further explanation what MOR stands for}
 
 
+\section{Setup/Theory asynchronous machine}
+\cite[p722]{sahdev2017electrical}
+\cite[p263]{wildi2006elect7rical}
+
+\cite[]{kaska2019optimalizace}
+\href{https://dspace5.zcu.cz/handle/11025/38222}{kaska}
+\alert{!! pagenumber is missing in Kaska}
+\cite[p62+]{gottlieb1997practical}
 
 
+\section{POD explanation principle}
+\cite[p595++]{bellam2021parametric}
+\cite[p4+]{ribau2021flow}
+\subsection{what can be done with \Comsol{} \Agros, example}
 
+
+\section{SVD explanation principle}
+\href{https://www.math.ucdavis.edu/~saito/courses/229A/stewart-svd.pdf}{some background information/history}
+\href{https://gregorygundersen.com/blog/2018/12/20/svd-proof/}{proof of svd}
+\href{https://gregorygundersen.com/blog/2018/12/10/svd/}{Singular Value Decomposition as Simply as Possible}
+
+
+\href{https://www.igpm.rwth-aachen.de/Download/ss14/mor/ROM_L10_SS2014.pdf}{SVD example/explanation}
+
+\construction{
+$X$: matrix from \Comsol{}; each row of the matrix consists of a sample solution taken at a specific value of time, and the number of rows in the matrix is the number of samples taken at evenly spaced values in time.
+\[ X = U\Sigma\conjtrans{V} \qquad (\trm{SVD factorization}) \]
+\[ X\in\ind{\C}[][m\times n] \qquad U\in\ind{\C}[][m\times m]\qquad \Sigma\in\ind{\R}[][m\times n]\qquad V\in\ind{\C}[][n\times n] \]
+$\Sigma$ diagonal matrix, with $\ind{\sigma}[1]\geq\ind{\sigma}[2]\geq\dots\geq\ind{\sigma}[\min(m,n)]\geq0$ \\
+$\ind{\sigma}[i]=\s{\ind{\lambda}[i](X\conjtrans{X})}$
+$\conjtrans{X}$ is conjugate transpose (in $\C$) or simple transposed (in $\R$). \\
+\href{https://faculty.washington.edu/shlizee/publications/pod_laser_v2.pdf}{pod paper definition, section2}
+\href{https://himpe.science/talks/himpe13_pod.pdf}{slide 3}
+
+}
 
 \end{document}
 
-%\cite[4]{acton1990numerical}
+
