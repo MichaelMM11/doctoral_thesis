@@ -35,60 +35,202 @@
 \construction{This box contains information/ideas that are not yet formed into sentences, in other words this will be implemented next}
 
 
-\section{State of the art}
+
+
+
+%\section{Why Model Order Reduction?}
+%{\color{Mblue}{[[ \cite[8]{schilders2008introduction}; \cite[11]{chen1999model}; \cite[2]{benner2021model} ]]}}
+%
+%Real world problems are too complex to be solved analytically. In classes one deals with simplifications like the projectile motions neglecting air resistance or \alert{!! second example needed} and representing electrons as point charges with no volume in space. However, if one applies the underlying equations to reality things are not so easy anymore. Partial differential equations (PDE) are usually the way to describe the laws of Physics. It turns out that by trying to solve these equations there is only in the rarest cases an algebraic expression as a solution. In all other cases equations must be solved numerically and are therefore only approximations to the problem. One approach to compute such approximations is using the finite element method (FEM). This computational technique discretizes the domain of interest into finite cells (mesh) and with given boundary conditions (BC) the field variable of the governing PDE is determined. The more accurate the solution should be the more cells and more grid points that define a cell are needed. Even for simple geometries the degrees of freedom (DOFs), \ie{} the numbers of unknown can be in orders of millions and billions. Using brute force (simply adding abundant computational power with RAM and fastest processors) is not advisable in terms of time and energy. Instead of dealing with the original large scale system model simplifications reduces complexity. The trick here is to get rid of all superfluous and unnecessary details that provide little to no contribution to the solution. This is where model order reduction (MOR) got its name. The following picture gives a rough explanation of this.
+%\begin{figure}[H]
+%	\includegraphics[width=\linewidth, height=6cm]{example-image}
+%	\caption{\cite[2]{benner2021model}. It seems that MOR is all about reducing the number of cells and grid points but that is not the essenece. The picture is given to demonstrate what reducing complexity but still holding the basic structure looks like.}
+%	\label{}
+%\end{figure}
+%\revise{++ add more background from schilders \\ ?? more background on FEM (examples where it is used today) \\ ?? basic explaining equations for MWE}
+%\construction{++ further explanation what MOR stands for}
+%
+%
+%\section{Setup/Theory asynchronous machine}
+%\cite[p722]{sahdev2017electrical}
+%\cite[p263]{wildi2006electrical}
+%
+%\cite[]{kaska2019optimalizace}
+%\href{https://dspace5.zcu.cz/handle/11025/38222}{kaska}
+%\alert{!! pagenumber is missing in Kaska}
+%\cite[p62+]{gottlieb1997practical}
+%
+%
+%\section{POD explanation principle}
+%\cite[p595++]{bellam2021parametric}
+%\cite[p4+]{ribau2021flow}
+%\subsection{what can be done with \Comsol{} \Agros, example}
+
+
+%\section{SVD explanation principle}
+%\href{https://www.math.ucdavis.edu/~saito/courses/229A/stewart-svd.pdf}{some background information/history}
+%\href{https://gregorygundersen.com/blog/2018/12/20/svd-proof/}{proof of svd}
+%\href{https://gregorygundersen.com/blog/2018/12/10/svd/}{Singular Value Decomposition as Simply as Possible}
+%\href{https://www.igpm.rwth-aachen.de/Download/ss14/mor/ROM_L10_SS2014.pdf}{SVD example/explanation}
+%
+%\construction{
+%$X$: matrix from \Comsol{}; each row of the matrix consists of a sample solution taken at a specific value of time, and the number of rows in the matrix is the number of samples taken at evenly spaced values in time.
+%\[ X = U\Sigma\conjtrans{V} \qquad (\trm{SVD factorization}) \]
+%\[ X\in\ind{\C}[][m\times n] \qquad U\in\ind{\C}[][m\times m]\qquad \Sigma\in\ind{\R}[][m\times n]\qquad V\in\ind{\C}[][n\times n] \]
+%$\Sigma$ diagonal matrix, with $\ind{\sigma}[1]\geq\ind{\sigma}[2]\geq\dots\geq\ind{\sigma}[\min(m,n)]\geq0$ \\
+%$\ind{\sigma}[i]=\s{\ind{\lambda}[i](X\conjtrans{X})}$
+%$\conjtrans{X}$ is conjugate transpose (in $\C$) or simple transposed (in $\R$). \\
+%\href{https://faculty.washington.edu/shlizee/publications/pod_laser_v2.pdf}{pod paper definition, section2}
+%\href{https://himpe.science/talks/himpe13_pod.pdf}{slide 3}
+%
+%}
+% Why are the concepts of existence and uniqueness important? Differential equations frequently model real-world systems as a function of time. Knowing that a solution exists means that the system has predictable future states[[Adkins 85]]
+
+
+\section{Setup and results}
+	\subsection{I-shape}
+	Before diving into a real and complex setup I decided it is best to start with basic examples where calculations can be done by hand and prototyping yields to faster results. For this the most simplest setup was taken, a simple \dimens{2} rectangular setup with fixed temperature $\ind{T}[0]=\SI{20}{\kelvin}$ on the left and $\ind{T}[1]=\SI{200}{\kelvin}$ on the right. The ambient temperature $\ind{T}[\trm{amb}]$ was given by $\ind{T}[\trm{amb}]=\SI{293.15}{\kelvin}$. The geometry is modelled as copper and only the thermal conductivity $\kappa$ was used as material property. This property and value, however, does not play a major role in the benchmark setup. Same goes with mesh quality. For quick prototyping reasons coarse meshes were accepted.
+	\begin{figure}[H]
+		\begin{figure}[H]
+			\begin{minipage}[t]{0.5\linewidth}
+				\begin{subfigure}[t]{\linewidth}
+					\includegraphics[width=\linewidth, height=6cm]{images/I_shape_geometry.png}
+					\caption{Geometry setup with fixed temperature on the left $\ind{T}[0]$ and right $\ind{T}[1]$ (highlighted in blue).}
+				\end{subfigure}
+			\end{minipage}
+			\begin{minipage}[t]{0.5\linewidth}
+				\begin{subfigure}[t]{\linewidth}
+					\includegraphics[width=\linewidth, height=6cm]{images/I_shape_solution.png}
+					\caption{Temperature distribution after \SI{5}{\second}.}
+				\end{subfigure}
+			\end{minipage}
+		\end{figure}
+		\caption{}
+		\label{}
+	\end{figure}
+	\begin{longtable}[c]{crrrrrr}
+		\toprule
+		POD & eigenval & acc eigenval & part E   & acc part E \\
+		\cmidrule(lr){1-1} \cmidrule(lr){2-2} \cmidrule(lr){3-3} \cmidrule(lr){4-4} \cmidrule(lr){5-5} 
+		1  & 2.641702e+06 & 2.642e+06 & 9.840e-01 & 0.983972 \\
+		2  & 3.478282e+04 & 2.676e+06 & 1.296e-02 & 0.996928 \\
+		3  & 7.451407e+03 & 2.684e+06 & 2.775e-03 & 0.999703 \\
+		4  & 7.218385e+02 & 2.685e+06 & 2.689e-04 & 0.999972 \\
+		5  & 6.723362e+01 & 2.685e+06 & 2.504e-05 & 0.999997 \\
+		6  & 7.572878e+00 & 2.685e+06 & 2.821e-06 & 1.000000 \\
+		7  & 2.260862e-01 & 2.685e+06 & 8.421e-08 & 1.000000 \\
+		8  & 1.093760e-02 & 2.685e+06 & 4.074e-09 & 1.000000 \\
+		\bottomrule
+		\caption{First 8 modes are listed. \tit{eigenval} column listed the eigenvalues in descending order (ordered from most to least important so to speak), \tit{acc eigenval} the sum of all eigenvalues up to this row, \tit{part E} columns represents the percentual energy each eigenvalue contributes to the system and the last column \tit{acc part E} the accummulated partial energy up to this row.}
+	\end{longtable}
+	In this setup the energy stored is $\ind{E}[\trm{stored}]=\num{2.685e6}$ and the first mode is contributing more than \SI{98}{\percent} of this value. That means that the first mode dominates the system. Having a look on the following left graph demonstrates this fact.
+	\begin{figure}[H]
+		\begin{figure}[H]
+			\begin{minipage}[t]{0.5\linewidth}
+				\begin{subfigure}[t]{\linewidth}
+					\includegraphics[width=\linewidth, height=6cm]{images/POD__eigenvalue.pdf}
+					\caption{Decay of the eigenvalues by a logarithmic scale on the \axis{y}. Each next mode is approximately one order of magnitude smaller.}
+				\end{subfigure}
+			\end{minipage}
+			\begin{minipage}[t]{0.5\linewidth}
+				\begin{subfigure}[t]{\linewidth}
+					\includegraphics[width=\linewidth, height=6cm]{images/POD__acc_energy.pdf}
+					\caption{The first 8 modes are plotted against the accummulated partial energy. The more modes are taken into account the more they must add up to 1. Here, only 2 modes are sufficient to capture more than \SI{99}{\percent} of the systen.}
+				\end{subfigure}
+			\end{minipage}
+		\end{figure}
+		\caption{}
+		\label{}
+	\end{figure}
+	With this reasonable data equipped one can make now the test if these modes do actually yield the input data.
+	\begin{figure}[H]
+		\begin{figure}[H]
+			\begin{minipage}[t]{0.5\linewidth}
+				\begin{subfigure}[t]{\linewidth}
+					\includegraphics[width=\linewidth, height=6cm]{images/I_shape_1t_POD.pdf}
+					\caption{Temperature distribution after 1 time step.}
+				\end{subfigure}
+			\end{minipage}
+			\begin{minipage}[t]{0.5\linewidth}
+				\begin{subfigure}[t]{\linewidth}
+					\includegraphics[width=\linewidth, height=6cm]{images/I_shape_5t_POD.pdf}
+					\caption{Temperature distribution after 5 time steps.}
+				\end{subfigure}
+			\end{minipage}
+		\end{figure}
+		\caption{The temperature distribution is gradually smoothing over the geometry.}
+		\label{}
+	\end{figure}
+
+
+	\subsection{L-shape}
+	To apply the code on a simple more complex geometry a \tit{L} was chosen with three different borders held constant. To generate a more diverse temperature distribution the fixed temperature values are $\ind{T}[0]=\SI{20}{\kelvin}$, $\ind{T}[1]=\SI{123}{\kelvin}$ and $\ind{T}[2]=\SI{200}{\kelvin}$. As in the previous case, ambient temperature was set to $\ind{T}[\trm{amb}]=\SI{293.15}{\kelvin}$.
+	\begin{figure}[H]
+		\begin{figure}[H]
+			\begin{minipage}[t]{0.5\linewidth}
+				\begin{subfigure}[t]{\linewidth}
+					\includegraphics[width=\linewidth, height=6cm]{images/L_shape_geometry.png}
+					\caption{Geometry setup with fixed temperature on the left $\ind{T}[0]$, on the right $\ind{T}[1]$ and on the top $\ind{T}[1]$.}
+				\end{subfigure}
+			\end{minipage}
+			\begin{minipage}[t]{0.5\linewidth}
+				\begin{subfigure}[t]{\linewidth}
+					\includegraphics[width=\linewidth, height=6cm]{images/L_shape_solution.png}
+					\caption{Temperature distribution after \SI{5}{\second}.}
+				\end{subfigure}
+			\end{minipage}
+		\end{figure}
+		\caption{}
+		\label{}
+	\end{figure}
+	As in the case with the \tit{I}-shape the decay was of similar nature, \ie only few eigenvalues are needed to take the total energy stored in the system. The code didn't need any modification at all, only different snapshot file from \Comsol{} was loaded. As in the previous case 
+	\begin{figure}[H]
+		\begin{figure}[H]
+			\begin{minipage}[t]{0.5\linewidth}
+				\begin{subfigure}[t]{\linewidth}
+					\includegraphics[width=\linewidth, height=6cm]{images/L_shape_1t_POD.pdf}
+					\caption{Temperature distribution after 1 time step.}
+				\end{subfigure}
+			\end{minipage}
+			\begin{minipage}[t]{0.5\linewidth}
+				\begin{subfigure}[t]{\linewidth}
+					\includegraphics[width=\linewidth, height=6cm]{images/L_shape_5t_POD.pdf}
+					\caption{Temperature distribution after 5 time steps.}
+				\end{subfigure}
+			\end{minipage}
+		\end{figure}
+		\caption{The temperature distribution is slowly spreading through the geometry but it cannot be correct. As visible in the geometry the point $P(4,3)$ is obviously not part of the geometry but there is associated temperature to this point. That means that there is an error in postprocessing the data and remapping of the data values to the geometry must be done with a different approach. Mesh artefacts are tolerated at this time.}
+		\label{}
+	\end{figure}
+	Next approach is not only export the data (nodes of mesh+values) but also the geometry from \Comsol. The nodes are not sufficient as artifacts will be created (here interpolation between nodes are performed and there is no naive way to \grqq{}force\grqq{} interpolation only on provided nodes). The interpolator has no way to understand if a connection line of nodes lies inside or outside the geometry and is therefore doomed to fail. So another approach has to be taken.
+	My next trials is to outsource the geometry and the mesh-generation (probably with \Gmsh, generate snapshot matrix (probably with \Freefem), generate POD marix (already done) and then to the interpolation of this matrix on the original geometry+mesh (not sure how to do). First trials were successful, \ie geometry could be meshed and stationary \Poisson-PDE could be solved (switching to time-dependent situation is next step but no fundamental problem) with \Freefem. However, snapshot matrix needs to be extracted but should be possible.
 
 
 
 
-\section{Why Model Order Reduction?}
-{\color{Mblue}{[[ \cite[8]{schilders2008introduction}; \cite[11]{chen1999model}; \cite[2]{benner2021model} ]]}}
-
-Real world problems are too complex to be solved analytically. In classes one deals with simplifications like the projectile motions neglecting air resistance or \alert{!! second example needed} and representing electrons as point charges with no volume in space. However, if one applies the underlying equations to reality things are not so easy anymore. Partial differential equations (PDE) are usually the way to describe the laws of Physics. It turns out that by trying to solve these equations there is only in the rarest cases an algebraic expression as a solution. In all other cases equations must be solved numerically and are therefore only approximations to the problem. One approach to compute such approximations is using the finite element method (FEM). This computational technique discretizes the domain of interest into finite cells (mesh) and with given boundary conditions (BC) the field variable of the governing PDE is determined. The more accurate the solution should be the more cells and more grid points that define a cell are needed. Even for simple geometries the degrees of freedom (DOFs), \ie{} the numbers of unknown can be in orders of millions and billions. Using brute force (simply adding abundant computational power with RAM and fastest processors) is not advisable in terms of time and energy. Instead of dealing with the original large scale system model simplifications reduces complexity. The trick here is to get rid of all superfluous and unnecessary details that provide little to no contribution to the solution. This is where model order reduction (MOR) got its name. The following picture gives a rough explanation of this.
-\begin{figure}[H]
-	\includegraphics[width=\linewidth, height=6cm]{example-image}
-	\caption{\cite[2]{benner2021model}. It seems that MOR is all about reducing the number of cells and grid points but that is not the essenece. The picture is given to demonstrate what reducing complexity but still holding the basic structure looks like.}
-	\label{}
-\end{figure}
-\revise{++ add more background from schilders \\ ?? more background on FEM (examples where it is used today) \\ ?? basic explaining equations for MWE}
-\construction{++ further explanation what MOR stands for}
+%\section{POD}
+%\href{https://api-depositonce.tu-berlin.de/server/api/core/bitstreams/2aeebc0d-c451-4171-9e24-3480c69b76d6/content}{main source of POD}
 
 
-\section{Setup/Theory asynchronous machine}
-\cite[p722]{sahdev2017electrical}
-\cite[p263]{wildi2006elect7rical}
-
-\cite[]{kaska2019optimalizace}
-\href{https://dspace5.zcu.cz/handle/11025/38222}{kaska}
-\alert{!! pagenumber is missing in Kaska}
-\cite[p62+]{gottlieb1997practical}
 
 
-\section{POD explanation principle}
-\cite[p595++]{bellam2021parametric}
-\cite[p4+]{ribau2021flow}
-\subsection{what can be done with \Comsol{} \Agros, example}
-
-
-\section{SVD explanation principle}
-\href{https://www.math.ucdavis.edu/~saito/courses/229A/stewart-svd.pdf}{some background information/history}
-\href{https://gregorygundersen.com/blog/2018/12/20/svd-proof/}{proof of svd}
-\href{https://gregorygundersen.com/blog/2018/12/10/svd/}{Singular Value Decomposition as Simply as Possible}
-
-
-\href{https://www.igpm.rwth-aachen.de/Download/ss14/mor/ROM_L10_SS2014.pdf}{SVD example/explanation}
-
-\construction{
-$X$: matrix from \Comsol{}; each row of the matrix consists of a sample solution taken at a specific value of time, and the number of rows in the matrix is the number of samples taken at evenly spaced values in time.
-\[ X = U\Sigma\conjtrans{V} \qquad (\trm{SVD factorization}) \]
-\[ X\in\ind{\C}[][m\times n] \qquad U\in\ind{\C}[][m\times m]\qquad \Sigma\in\ind{\R}[][m\times n]\qquad V\in\ind{\C}[][n\times n] \]
-$\Sigma$ diagonal matrix, with $\ind{\sigma}[1]\geq\ind{\sigma}[2]\geq\dots\geq\ind{\sigma}[\min(m,n)]\geq0$ \\
-$\ind{\sigma}[i]=\s{\ind{\lambda}[i](X\conjtrans{X})}$
-$\conjtrans{X}$ is conjugate transpose (in $\C$) or simple transposed (in $\R$). \\
-\href{https://faculty.washington.edu/shlizee/publications/pod_laser_v2.pdf}{pod paper definition, section2}
-\href{https://himpe.science/talks/himpe13_pod.pdf}{slide 3}
-
-}
 
 \end{document}
-
-
+https://mph.readthedocs.io/en/stable/tutorial.html
+https://www.scribd.com/document/472526882/Holmes-P-Lumley-J-L-Berkooz-G-Rowley-C-W-b-ok-org-pdf#
+https://modred.readthedocs.io/en/stable/tutorial_modaldecomp.html
+https://modred.readthedocs.io/en/stable/tutorial_modaldecomp.html#id1
+https://julianroth.org/res/Master_Thesis_Julian_Roth.pdf
+https://www.dealii.org/current/doxygen/deal.II/step_26.html#Results
+https://pythonnumericalmethods.berkeley.edu/notebooks/chapter15.04-Eigenvalues-and-Eigenvectors-in-Python.html
+https://api-depositonce.tu-berlin.de/server/api/core/bitstreams/2aeebc0d-c451-4171-9e24-3480c69b76d6/content
+https://gregorygundersen.com/blog/2018/12/20/svd-proof/
+https://www.math.ucdavis.edu/~saito/courses/229A/stewart-svd.pdf
+https://web.stanford.edu/group/frg/course_work/CME345/CA-CME345-Ch4.pdf
+https://faculty.washington.edu/shlizee/publications/pod_laser_v2.pdf
+https://himpe.science/talks/himpe13_pod.pdf
+https://www.igpm.rwth-aachen.de/Download/ss14/mor/ROM_L10_SS2014.pdf
+https://de.mathworks.com/help/symbolic/singular-value-decomposition.html
+https://de.mathworks.com/help/symbolic/svd.html#btqosde-sigma
+https://www.cs.cmu.edu/~elaw/papers/pca.pdf
+https://www.um.es/freefem/ff++/pmwiki.php?n=Main.PO
