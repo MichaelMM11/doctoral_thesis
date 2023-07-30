@@ -8,6 +8,11 @@
 \bibliography{/home/michael/LaTeX_Unification/myliteratur.bib}
 
 
+\usepackage[acronym, nopostdot]{glossaries}
+
+% - abbreviation (#1) of what (#2) that stands for (#3)
+\newacronym{POD}{POD}{proper orthogonal decomposition}
+\newacronym{SVD}{SVD}{single value decomposition}
 
 \begin{document}
 %\subject{}
@@ -26,65 +31,67 @@
 %\listoftables
 %\listofalgorithms
 %\lstlistoflistings
-\printbibliography
+%\printbibliography
 
 
-\alert{This indicates an alert, passage is either wrong, confusing, misleading, or any other kind of high attention.}
-\revise{This indicates a revision, in general it's not wrong but explanation is poor, wording is improper, or not satisfying in general.}
-\info{This is an information, it contains some side information/comments that can be useful.}
-\construction{This box contains information/ideas that are not yet formed into sentences, in other words this will be implemented next}
+%\alert{This indicates an alert, passage is either wrong, confusing, misleading, or any other kind of high attention.}
+%\revise{This indicates a revision, in general it's not wrong but explanation is poor, wording is improper, or not satisfying in general.}
+%\info{This is an information, it contains some side information/comments that can be useful.}
+%\construction{This box contains information/ideas that are not yet formed into sentences, in other words this will be implemented next}
 
 
 
 
 
-%\section{Why Model Order Reduction?}
-%{\color{Mblue}{[[ \cite[8]{schilders2008introduction}; \cite[11]{chen1999model}; \cite[2]{benner2021model} ]]}}
-%
-%Real world problems are too complex to be solved analytically. In classes one deals with simplifications like the projectile motions neglecting air resistance or \alert{!! second example needed} and representing electrons as point charges with no volume in space. However, if one applies the underlying equations to reality things are not so easy anymore. Partial differential equations (PDE) are usually the way to describe the laws of Physics. It turns out that by trying to solve these equations there is only in the rarest cases an algebraic expression as a solution. In all other cases equations must be solved numerically and are therefore only approximations to the problem. One approach to compute such approximations is using the finite element method (FEM). This computational technique discretizes the domain of interest into finite cells (mesh) and with given boundary conditions (BC) the field variable of the governing PDE is determined. The more accurate the solution should be the more cells and more grid points that define a cell are needed. Even for simple geometries the degrees of freedom (DOFs), \ie{} the numbers of unknown can be in orders of millions and billions. Using brute force (simply adding abundant computational power with RAM and fastest processors) is not advisable in terms of time and energy. Instead of dealing with the original large scale system model simplifications reduces complexity. The trick here is to get rid of all superfluous and unnecessary details that provide little to no contribution to the solution. This is where model order reduction (MOR) got its name. The following picture gives a rough explanation of this.
-%\begin{figure}[H]
-%	\includegraphics[width=\linewidth, height=6cm]{example-image}
-%	\caption{\cite[2]{benner2021model}. It seems that MOR is all about reducing the number of cells and grid points but that is not the essenece. The picture is given to demonstrate what reducing complexity but still holding the basic structure looks like.}
-%	\label{}
-%\end{figure}
-%\revise{++ add more background from schilders \\ ?? more background on FEM (examples where it is used today) \\ ?? basic explaining equations for MWE}
-%\construction{++ further explanation what MOR stands for}
-%
-%
-%\section{Setup/Theory asynchronous machine}
-%\cite[p722]{sahdev2017electrical}
-%\cite[p263]{wildi2006electrical}
-%
-%\cite[]{kaska2019optimalizace}
-%\href{https://dspace5.zcu.cz/handle/11025/38222}{kaska}
-%\alert{!! pagenumber is missing in Kaska}
-%\cite[p62+]{gottlieb1997practical}
-%
-%
-%\section{POD explanation principle}
-%\cite[p595++]{bellam2021parametric}
-%\cite[p4+]{ribau2021flow}
-%\subsection{what can be done with \Comsol{} \Agros, example}
 
 
-%\section{SVD explanation principle}
-%\href{https://www.math.ucdavis.edu/~saito/courses/229A/stewart-svd.pdf}{some background information/history}
-%\href{https://gregorygundersen.com/blog/2018/12/20/svd-proof/}{proof of svd}
-%\href{https://gregorygundersen.com/blog/2018/12/10/svd/}{Singular Value Decomposition as Simply as Possible}
-%\href{https://www.igpm.rwth-aachen.de/Download/ss14/mor/ROM_L10_SS2014.pdf}{SVD example/explanation}
-%
-%\construction{
-%$X$: matrix from \Comsol{}; each row of the matrix consists of a sample solution taken at a specific value of time, and the number of rows in the matrix is the number of samples taken at evenly spaced values in time.
-%\[ X = U\Sigma\conjtrans{V} \qquad (\trm{SVD factorization}) \]
-%\[ X\in\ind{\C}[][m\times n] \qquad U\in\ind{\C}[][m\times m]\qquad \Sigma\in\ind{\R}[][m\times n]\qquad V\in\ind{\C}[][n\times n] \]
-%$\Sigma$ diagonal matrix, with $\ind{\sigma}[1]\geq\ind{\sigma}[2]\geq\dots\geq\ind{\sigma}[\min(m,n)]\geq0$ \\
-%$\ind{\sigma}[i]=\s{\ind{\lambda}[i](X\conjtrans{X})}$
-%$\conjtrans{X}$ is conjugate transpose (in $\C$) or simple transposed (in $\R$). \\
-%\href{https://faculty.washington.edu/shlizee/publications/pod_laser_v2.pdf}{pod paper definition, section2}
-%\href{https://himpe.science/talks/himpe13_pod.pdf}{slide 3}
-%
-%}
-% Why are the concepts of existence and uniqueness important? Differential equations frequently model real-world systems as a function of time. Knowing that a solution exists means that the system has predictable future states[[Adkins 85]]
+\section{Why Model Order Reduction?}
+{\color{Mblue}{[[ \cite[8]{schilders2008introduction}; \cite[11]{chen1999model}; \cite[2]{benner2021model} ]]}}
+
+Real world problems are too complex to be solved analytically. In classes one deals with simplifications like the projectile motions neglecting air resistance or \alert{!! second example needed} and representing electrons as point charges with no volume in space. However, if one applies the underlying equations to reality things are not so easy anymore. Partial differential equations (PDE) are usually the way to describe the laws of Physics. It turns out that by trying to solve these equations there is only in the rarest cases an algebraic expression as a solution. In all other cases equations must be solved numerically and are therefore only approximations to the problem. One approach to compute such approximations is using the finite element method (FEM). This computational technique discretizes the domain of interest into finite cells (mesh) and with given boundary conditions (BC) the field variable of the governing PDE is determined. The more accurate the solution should be the more cells and more grid points that define a cell are needed. Even for simple geometries the degrees of freedom (DOFs), \ie{} the numbers of unknown can be in orders of millions and billions. Using brute force (simply adding abundant computational power with RAM and fastest processors) is not advisable in terms of time and energy. Instead of dealing with the original large scale system model simplifications reduces complexity. The trick here is to get rid of all superfluous and unnecessary details that provide little to no contribution to the solution. This is where model order reduction (MOR) got its name. The following picture gives a rough explanation of this.
+\begin{figure}[H]
+	\includegraphics[width=\linewidth, height=6cm]{example-image}
+	\caption{\cite[2]{benner2021model}. It seems that MOR is all about reducing the number of cells and grid points but that is not the essenece. The picture is given to demonstrate what reducing complexity but still holding the basic structure looks like.}
+	\label{}
+\end{figure}
+\revise{++ add more background from schilders \\ ?? more background on FEM (examples where it is used today) \\ ?? basic explaining equations for MWE}
+\construction{++ further explanation what MOR stands for}
+
+
+\section{Setup/Theory asynchronous machine}
+\cite[p722]{sahdev2017electrical}
+\cite[p263]{wildi2006electrical}
+
+\cite[]{kaska2019optimalizace}
+\href{https://dspace5.zcu.cz/handle/11025/38222}{kaska}
+\alert{!! pagenumber is missing in Kaska}
+\cite[p62+]{gottlieb1997practical}
+
+
+\section{POD explanation principle}
+\cite[p595++]{bellam2021parametric}
+\cite[p4+]{ribau2021flow}
+\subsection{what can be done with \Comsol{} \Agros, example}
+
+
+\section{SVD explanation principle}
+\href{https://www.math.ucdavis.edu/~saito/courses/229A/stewart-svd.pdf}{some background information/history}
+\href{https://gregorygundersen.com/blog/2018/12/20/svd-proof/}{proof of svd}
+\href{https://gregorygundersen.com/blog/2018/12/10/svd/}{Singular Value Decomposition as Simply as Possible}
+\href{https://www.igpm.rwth-aachen.de/Download/ss14/mor/ROM_L10_SS2014.pdf}{SVD example/explanation}
+
+\construction{
+$X$: matrix from \Comsol{}; each row of the matrix consists of a sample solution taken at a specific value of time, and the number of rows in the matrix is the number of samples taken at evenly spaced values in time.
+\[ X = U\Sigma\conjtrans{V} \qquad (\trm{SVD factorization}) \]
+\[ X\in\ind{\C}[][m\times n] \qquad U\in\ind{\C}[][m\times m]\qquad \Sigma\in\ind{\R}[][m\times n]\qquad V\in\ind{\C}[][n\times n] \]
+$\Sigma$ diagonal matrix, with $\ind{\sigma}[1]\geq\ind{\sigma}[2]\geq\dots\geq\ind{\sigma}[\min(m,n)]\geq0$ \\
+$\ind{\sigma}[i]=\s{\ind{\lambda}[i](X\conjtrans{X})}$
+$\conjtrans{X}$ is conjugate transpose (in $\C$) or simple transposed (in $\R$). \\
+\href{https://faculty.washington.edu/shlizee/publications/pod_laser_v2.pdf}{pod paper definition, section2}
+\href{https://himpe.science/talks/himpe13_pod.pdf}{slide 3}
+
+}
+ Why are the concepts of existence and uniqueness important? Differential equations frequently model real-world systems as a function of time. Knowing that a solution exists means that the system has predictable future states[[Adkins 85]]
 
 
 \section{Setup and results}
@@ -203,17 +210,111 @@
 		\label{}
 	\end{figure}
 	Next approach is not only export the data (nodes of mesh+values) but also the geometry from \Comsol. The nodes are not sufficient as artifacts will be created (here interpolation between nodes are performed and there is no naive way to \grqq{}force\grqq{} interpolation only on provided nodes). The interpolator has no way to understand if a connection line of nodes lies inside or outside the geometry and is therefore doomed to fail. So another approach has to be taken.
-	My next trials is to outsource the geometry and the mesh-generation (probably with \Gmsh, generate snapshot matrix (probably with \Freefem), generate POD marix (already done) and then to the interpolation of this matrix on the original geometry+mesh (not sure how to do). First trials were successful, \ie geometry could be meshed and stationary \Poisson-PDE could be solved (switching to time-dependent situation is next step but no fundamental problem) with \Freefem. However, snapshot matrix needs to be extracted but should be possible.
+	My next trials is to outsource the geometry and the mesh-generation (probably with \Gmsh, generate snapshot matrix (probably with \Freefempp), generate POD marix (already done) and then to the interpolation of this matrix on the original geometry+mesh (not sure how to do). First trials were successful, \ie geometry could be meshed and stationary \Poisson-PDE could be solved (switching to time-dependent situation is next step but no fundamental problem) with \Freefempp. However, snapshot matrix needs to be extracted but should be possible.
 
 
 
 
-%\section{POD}
-%\href{https://api-depositonce.tu-berlin.de/server/api/core/bitstreams/2aeebc0d-c451-4171-9e24-3480c69b76d6/content}{main source of POD}
+\section{Mathematical background of POD and SVD}
+	\subsection{The \acrshort{SVD}}
+
+	Among all matrix decompositions like LU decomposition or Cholesky decomposition in linear algebra the singular value decomposition of a matrix $\mat{A}$ into $\mat{U}\mat{\Sigma}\transpose{\mat{V}}$ has assumed a special role. One reasons is numerical stability: small perturbations in $\mat{A}$ correspons to small perturbations in $\mat{\Sigma}$ and vice versa. \source{https://www.math.ucdavis.edu/~saito/courses/229A/stewart-svd.pdf} \\
+	As a general statement, each matrix $\mat{A}\in$ \korpmn{\R}{m}{n} can be factorized into orthogonal matrices $\mat{U}\in$ \korpmn{\R}{m}{m}, $\mat{V}\in$ \korpmn{\R}{n}{n} and a diagonal matrix $\mat{\Sigma}\bydef\diag\brk{\ind{\sigma}[1],\dots,\ind{\sigma}[d]}\in$ \korpmn{\R}{m}{n}
+	with $d=\min\brk{m,n}$ and in decreasing order values $\ind{\sigma}[1]\geq\ind{\sigma}[2]\geq\dots\geq\ind{\sigma}[d]\geq\ind{\sigma}[d+1]=0$ such that
+	\begin{equation}
+		\mat{U}=\mat{L}\mat{\Sigma}\transpose{\mat{R}}.
+	\end{equation}
+	The values $\ind{\sigma}[i]$ are called the singular values of $\mat{U}$.\source{Strang, linal p331}
+	In its core the SVD is a procedure that will diagonalize any rectangular matrix, whereas eigenvalue decomposition only works for square matrices.
 
 
 
 
+
+
+\newpage
+
+	Any matrix $\mat{U}\in$ \korpmn{\R}{m}{n}, the \tit{snapshot matrix}, can be factored into
+
+	$\mat{L}$ is an \dimmat{m}{m} orthogonal matrix, $\mat{\Sigma}$ is an \dimmat{m}{n} rectangular matrix and $\mat{R}$ is an \dimmat{n}{n} orthogonal matrix.
+	The matrix $\mat{\Sigma}$ can be written in the form
+	\begin{equation}
+		\mat{\Sigma}=
+			\begin{pmatrix}
+			D & 0 \\
+			0 & 0
+			\end{pmatrix}
+		\end{equation}
+	with $D=\diag{\ind{\sigma}[1],\dots,\ind{\sigma}[d]}$ and .
+	To compute the singular calue decomposition of $\mat{U}$ is somewhere between computationally expensive and practically infeasible. The reason is that $\mat{U}$ is \dimmat{m}{n} matrix with at least $m$ or $n$ very large. To solve this issue snapshot POD was developed by SIROVICH to speed up computation.
+\source{L. Sirovich. Turbulence and the dynamics of coherent structures. I. coherent structures. Quarterly of Applied Mathematics, 45(3):561,571, 1987.}
+\source{Hogben Handbook of Linear Algebra, chapter 5.6[p95], 17[p140], 45[p733]}
+
+	\subsection{The \acrlong{POD}}
+\construction{
+	\source{https://arxiv.org/pdf/2206.08995.pdf} \source{Weiss, 1}
+	\gls{POD} was introduced by Lumley in 1967 as an attempt to decompose the random vector field of turbulent flow into a set of deterministic functions. With these limited number of deterministic functions, the \gls{POD} modes, future prediction are possible.
+	All forms of \gls{POD} are based on statistical methods and treat the dynamic system as random. The system itself is by no means random but appears to be chaotic, so the most general approach is it to view as random. \gls{POD} aims to obtain low-dimensional approximations from high-dimensional processes. Its applications comprises among other turbulent fluid flows, structural vibrations, image processing or data analysis. \source{Chatterjee, 1}.
+	If we have a vector-valued function $u(\vec{x},t)$ over some domain of interest and time, we can express this with the standard eigenfunction expansion 
+	\begin{equation}
+		\vec{u}^\prime(\vec{x},t)=\lsum{k=1}{\infty}\ind{a}[k](t)\ind{\Phi}[k](\vec{x})\approx \label{eq:X}
+	\end{equation}
+	As one can see there is no fundamental difference between the variables $t$ and $\vec{x}$ and we usually denote them as the temporal coordinate/variable $t$ and spatial coordinate/variable $\vec{x}$. \\
+	Such a separation of variables in \eqref{eq:X} is not unique. Common functions for $\ind{\Phi}[k](\vec{x})$ are \Fourier-series, \Legendre-polynomials or \Chebyshev-polynomials. For each such a set of functions $\ind{a}[k](t)$ are different. \\
+	explain what the letters in POD stands for
+	
+	\newpage
+	$\ind{\Phi}[k](\vec{x})$ are an orthogonal set of eigenfunctions
+
+	 we can approximate it with a finite sum in variables-separated form
+Note that Phi is not unique
+	}
+	
+
+	\begin{equation}
+		\vec{u}^\prime(\vec{x},t)=\lsum{k=1}{\infty}\ind{a}[k](t)\ind{\Phi}[k](\vec{x})
+	\end{equation}
+	$\ind{\Phi}[k](\vec{x})$ are POD spatial mode and $\ind{a}[k](t)$ their time coefficients.
+\source{Strang, LinalgAppl p331}
+
+
+	temporal variable $t$ and sparial variable $\vec{x}$.
+	There are two ways to read POD:
+	\begin{itemize}
+		\item a decomposition in deterministic spatial modes and random time coefficients (direct method)
+		\item a decomposition in deterministic temporal modes with random spatial  coefficients (snapshot method)
+	\end{itemize}
+	For both decompositions the eigenvalues are the same.
+
+
+	\subsection{The connection between POD and SVD}
+	The connection between POD and SVD can be understood best when one calculates the matrices $\ind{\mat{C}}[1]$ and $\ind{\mat{C}}[2]$:
+
+	\begin{align}
+		\ind{\mat{C}}[1] &= \f{1}{m-1}\brk1{\transpose{\mat{U}}\mat{U}} \\
+		&= \f{1}{m-1}\brk2{\transpose{\brk1{\mat{L}\mat{\Sigma}\transpose{\mat{R}}}} \brk1{\mat{L}\mat{\Sigma}\transpose{\mat{R}}}} \\
+		&= \f{1}{m-1}\brk1{\mat{R}\transpose{\mat{\Sigma}}\transpose{\mat{L}}\mat{L}\mat{\Sigma}\transpose{\mat{R}}} \\
+		&= \f{1}{m-1}\brk{\mat{R}\brk{\transpose{\mat{\Sigma}}\mat{\Sigma}}\transpose{\mat{R}}}
+	\end{align}
+	and
+	\begin{align}
+		\ind{\mat{C}}[2] &= \f{1}{m-1}\brk1{\mat{U}\transpose{\mat{U}}} \\
+		&= \f{1}{m-1}\brk2{\brk1{\mat{L}\mat{\Sigma}\transpose{\mat{R}}}\transpose{\brk1{\mat{L}\mat{\Sigma}\transpose{\mat{R}}}} } \\
+		&= \f{1}{m-1}\brk1{\mat{L}\transpose{\mat{\Sigma}}\transpose{\mat{R}}\mat{R}\mat{\Sigma}\transpose{\mat{L}}} \\
+		&= \f{1}{m-1}\brk{\mat{L}\brk{\transpose{\mat{\Sigma}}\mat{\Sigma}}\transpose{\mat{L}}}
+	\end{align}
+
+
+
+	$m$ number of degrees of freedom in spatial discretization of PDE and much larger than  number of time steps $n$. 
+	
+	
+\source{L. Sirovich. Turbulence and the dynanics of coherent structures. Part I: Coherent structures.
+Quarterly of Applied Mathematics, 45(3):561–571, 1987. Full publication date: October 1987.}
+\source{L. Sirovich. Turbulence and the dynanics of coherent structures. Part II: Symmetries and transfor-mations. Quarterly of Applied Mathematics, 45(3):573–582, 1987. Full publication date: October
+1987.}
+\source{L. Sirovich. Turbulence and the dynanics of coherent structures. Part III: Dynamics and scaling.
+Quarterly of Applied Mathematics, 45(3):583–590, 1987. Full publication date: October 1987.}
 
 \end{document}
 https://mph.readthedocs.io/en/stable/tutorial.html
@@ -228,7 +329,6 @@ https://gregorygundersen.com/blog/2018/12/20/svd-proof/
 https://www.math.ucdavis.edu/~saito/courses/229A/stewart-svd.pdf
 https://web.stanford.edu/group/frg/course_work/CME345/CA-CME345-Ch4.pdf
 https://faculty.washington.edu/shlizee/publications/pod_laser_v2.pdf
-https://himpe.science/talks/himpe13_pod.pdf
 https://www.igpm.rwth-aachen.de/Download/ss14/mor/ROM_L10_SS2014.pdf
 https://de.mathworks.com/help/symbolic/singular-value-decomposition.html
 https://de.mathworks.com/help/symbolic/svd.html#btqosde-sigma
